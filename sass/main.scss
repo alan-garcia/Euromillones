@@ -1,0 +1,159 @@
+$colorBoleto: #f4511e;
+$colorGanador: #00e676;
+$colorBlanco: #fff;
+
+.logo {
+  margin: 2.5em auto;
+  width: 100%;
+}
+
+.menu {
+  font-size: 1em;
+  margin: 2em 0;
+
+  .jugarButton, .instruccionesButton {
+    display: inline-block;
+    margin: 1em;
+  }
+}
+
+.principal {
+  margin: 0 0 3em 0;
+  overflow: hidden;
+}
+
+.jugar,
+.instrucciones {
+  display: none;
+}
+
+.jugar {
+  .input-group-container > span {
+    display: flex;
+    flex: 1;
+  }
+}
+
+.estrellasContainer {
+  background: #ffee78;
+}
+
+.boletoContainer {
+  .botonSuerte {
+    margin: 1.5em;
+  }
+}
+
+.boleto,
+.estrellasContainer {
+  border: 1px solid $colorBoleto;
+  border-radius: 10px;
+  margin: 0 1em;
+  padding: 1em;
+
+  h3 {
+    color: $colorBoleto;
+    margin: 0 0 1em 0;
+  }
+}
+
+.numeros,
+.estrellasContainer {
+  label {
+    display: inline-block;
+    margin: .4em;
+    width: 2em;
+
+    input {
+      display: none;
+      &:checked + span {
+        background: #333;
+        color: $colorBlanco;
+      }
+    }
+
+    span {
+      background: $colorBlanco;
+      border: 1px solid $colorBoleto;
+      border-radius: 3px;
+      color: $colorBoleto;
+      display: block;
+      line-height: 2em;
+
+      &:hover {
+        background: #e0e0e0;
+      }
+    }
+  }
+}
+
+.jugarEuromillon {
+  display: none;
+  margin: 1em 0;
+  overflow: hidden;
+
+  .miCombinacion,
+  .combinacionGanadora {
+    float: left;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.5em;
+    letter-spacing: .1em;
+    width: 14em;
+  }
+
+  .tuApuesta,
+  .apuestaGanadora {
+    border-radius: 4px;
+    color: $colorBlanco;
+    display: inline-block;
+    height: 2em;
+    line-height: 2em;
+    width: 9em;
+  }
+
+  .tuApuesta {
+    background: #40c4ff;
+  }
+
+  .apuestaGanadora {
+    background: $colorGanador;
+  }
+}
+
+.toggleButton {
+  display: block;
+  height: 100%;
+}
+
+.mensajeAciertos {
+  background: $colorGanador;
+  color: $colorBlanco;
+  display: none;
+  height: 4em;
+  line-height: 4em;
+  margin: auto auto 2em auto;
+  width: 12em;
+}
+
+.input-group-container {
+  width: 200px;
+  margin-right: 1em;
+}
+
+.reintentar {
+  margin: 2em 0;
+}
+
+.acierto {
+  animation: filaAcertada .8s infinite alternate;
+  background: $colorGanador;
+}
+
+@keyframes filaAcertada {
+  0% {
+    background: $colorGanador;
+  }
+  100% {
+    background: $colorBlanco;
+  }
+}
