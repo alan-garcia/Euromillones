@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Euromillones</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.3/dist/sweetalert2.min.css"/>
     <link rel="stylesheet" href="css/main.css"/>
   </head>
   <body>
@@ -58,15 +58,12 @@
               <h3>Estrellas</h3>
               <div class="estrellas"></div>
             </div>
-            <button class="botonSuerte btn btn-primary">¡SUERTE!</button>
+            <button class="botonSuerte btn btn-primary">¡BUENA SUERTE!</button>
           </div>
-    
+        </div>
+        
+        <div class="resultado">
           <div class="jugarEuromillon col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="mensajeAciertos text-center"></div>
-            <div class="reintentar text-center">
-              <button class="btn btn-primary">REINTENTAR</button>
-            </div>
-
             <div class="input-group mb-3">
               <div class="input-group-container">
                 <span class="input-group-text" id="mis-combinaciones">Tus números</span>
@@ -79,6 +76,11 @@
                 <span class="input-group-text" id="combinacion-ganadora">Combinación ganadora</span>
               </div>
               <div class="combinacionGanadora" aria-describedby="combinacion-ganadora"></div>
+            </div>
+
+            <div class="mensajeAciertos text-center"></div>
+            <div class="reintentar text-center">
+              <button class="btn btn-primary">REINTENTAR</button>
             </div>
           </div>
           
@@ -167,9 +169,9 @@
       </main>
     </div>
 
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.3/dist/sweetalert2.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
