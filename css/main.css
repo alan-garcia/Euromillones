@@ -59,19 +59,24 @@
   width: 2em;
 }
 
-.numeros label input,
-.estrellasContainer label input {
+.numeros label,
+.estrellas label {
+  cursor: pointer;
+}
+
+.numeros input,
+.estrellasContainer input {
   display: none;
 }
 
-.numeros label input:checked + span,
-.estrellasContainer label input:checked + span {
+.numeros input:checked + span,
+.estrellasContainer input:checked + span {
   background: #333;
   color: #fff;
 }
 
-.numeros label span,
-.estrellasContainer label span {
+.numeros span,
+.estrellasContainer span {
   background: #fff;
   border: 1px solid #f4511e;
   border-radius: 3px;
@@ -80,8 +85,8 @@
   line-height: 2em;
 }
 
-.numeros label span:hover,
-.estrellasContainer label span:hover {
+.numeros span:hover,
+.estrellasContainer span:hover {
   background: #e0e0e0;
 }
 
