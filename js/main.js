@@ -5,23 +5,21 @@ const LOTTERY_TICKET_STARS = 11;
 const SELECTION_NUMBERS_LIMIT = 5;
 const SELECTION_STARS_LIMIT = 2;
 
-let playButton = document.querySelector(".jugarButton");
-let instructionsButton = document.querySelector(".instruccionesButton");
+let playButton = document.querySelector(".playButton");
+let instructionsButton = document.querySelector(".instructionsButton");
 let numbersAndStarsIsLoaded = false;
 
-let numbersDiv = document.querySelector('.numeros');
+let numbersDiv = document.querySelector('.numbers');
 let numbersSelectedTicket = [];
-let number = 0;
 
-let starsDiv = document.querySelector('.estrellas');
+let starsDiv = document.querySelector('.stars');
 let starsSelectedTicket = [];
-let starsNumbers = 0;
 
-let goodLuckButton = document.querySelector(".botonSuerte");
+let goodLuckButton = document.querySelector(".luckyButton");
 goodLuckButton.disabled = false;
 
 playButton.addEventListener("click", () => {
-  document.querySelector(".jugar").classList.toggle("toggleButton");
+  document.querySelector(".play").classList.toggle("toggleButton");
 
   if (!numbersAndStarsIsLoaded) {
     loadNumbersAndStarsTicket();
@@ -29,15 +27,15 @@ playButton.addEventListener("click", () => {
 });
 
 instructionsButton.addEventListener("click", () => {
-  document.querySelector(".instrucciones").classList.toggle("toggleButton");
+  document.querySelector(".instructions").classList.toggle("toggleButton");
 });
 
 function loadNumbersAndStarsTicket() {
-  for (let n = 1; n <= LOTTERY_TICKET_NUMBERS; n++) {
-    numbersDiv.innerHTML += `<label><input type="checkbox" value='${n}' onchange="numbersSelection(this)"><span>${n}</span></label>`;
+  for (let numbers = 1; numbers <= LOTTERY_TICKET_NUMBERS; numbers++) {
+    numbersDiv.innerHTML += `<label><input type="checkbox" value='${ numbers }' onchange="numbersSelection(this)"><span>${ numbers }</span></label>`;
   }
   for (let stars = 1; stars <= LOTTERY_TICKET_STARS; stars++) {
-    starsDiv.innerHTML += `<label><input type="checkbox" value='${stars}' onchange="starsSelection(this)"><span>${stars}</span></label>`;
+    starsDiv.innerHTML += `<label><input type="checkbox" value='${ stars }' onchange="starsSelection(this)"><span>${ stars }</span></label>`;
   }
 
   numbersAndStarsIsLoaded = true;
@@ -47,7 +45,7 @@ function numbersSelection(thisNumber) {
   if (thisNumber.checked) {
     if (isSelectedAllNumbers(numbersSelectedTicket)) {
       thisNumber.checked = false;
-      showWarningMessage("¡Cuidado!", `No puedes elegir más de ${SELECTION_NUMBERS_LIMIT} números. Para rectificar, haga click en un número ya seleccionado.`)
+      showWarningMessage("¡Cuidado!", `No puedes elegir más de ${ SELECTION_NUMBERS_LIMIT } números. Para rectificar, haga click en un número ya seleccionado.`)
     }
     else {
       numbersSelectedTicket.push(parseInt(thisNumber.value));
@@ -64,7 +62,7 @@ function starsSelection(thisNumber) {
   if (thisNumber.checked) {
     if (isSelectedAllStars(starsSelectedTicket)) {
       thisNumber.checked = false;
-      showWarningMessage("¡Cuidado!", `No puedes elegir más de ${SELECTION_STARS_LIMIT} estrellas. Para rectificar, haga click en una estrella ya seleccionada.`);
+      showWarningMessage("¡Cuidado!", `No puedes elegir más de ${ SELECTION_STARS_LIMIT } estrellas. Para rectificar, haga click en una estrella ya seleccionada.`);
     }
     else {
       starsSelectedTicket.push(parseInt(thisNumber.value));
@@ -97,18 +95,18 @@ goodLuckButton.addEventListener("click", () => {
   if (isSelectedAllNumbers(numbersSelectedTicket) && isSelectedAllStars(starsSelectedTicket)) {
     playEuromillon();
     goodLuckButton.disabled = true;
-    document.querySelectorAll(".mensajeAciertos, .jugarEuromillon")
+    document.querySelectorAll(".hitsMessage, .playEuromillon")
       .forEach(element => element.style.display = "block")
   }
   else {
-    showWarningMessage("¡Cuidado!", `Tienes que seleccionar obligatoriamente ${SELECTION_NUMBERS_LIMIT} números y ${SELECTION_STARS_LIMIT} estrellas.`);
+    showWarningMessage("¡Cuidado!", `Tienes que seleccionar obligatoriamente ${ SELECTION_NUMBERS_LIMIT } números y ${ SELECTION_STARS_LIMIT } estrellas.`);
   }
 });
 
 function playEuromillon() {
-  let myCombinationDiv = document.querySelector(".miCombinacion");
-  let combinationWinnerDiv = document.querySelector(".combinacionGanadora");
-  let getAllSuccessPrizesTableRow = document.querySelectorAll(".tablaPremios td:nth-child(2)");
+  let myCombinationDiv = document.querySelector(".myCombination");
+  let winnerCombinationDiv = document.querySelector(".winnerCombination");
+  let getAllSuccessPrizesTableRow = document.querySelectorAll(".prizesTable td:nth-child(2)");
 
   let myCombination = [];
   let winnerCombination = [];
@@ -144,7 +142,7 @@ function playEuromillon() {
   winnerCombination = [...winnersNumbers, " + ", ...winnersStars];
 
   winnerCombination.forEach((winnerCombination, i) => {
-    combinationWinnerDiv.innerHTML += winnerCombination + " ";
+    winnerCombinationDiv.innerHTML += winnerCombination + " ";
     myCombinationDiv.innerHTML += myCombination[i] + " ";
   });
 
@@ -154,8 +152,8 @@ function playEuromillon() {
   showSuccessPrizesTableRow();
 
   function showSuccessPrizesTableRow() {
-    totalSuccess = `${successNumbersQuantity}+${successStarsQuantity}`;
-    document.querySelector(".mensajeAciertos").innerHTML = `Has acertado ${totalSuccess}`;
+    totalSuccess = `${ successNumbersQuantity }+${ successStarsQuantity }`;
+    document.querySelector(".hitsMessage").innerHTML = `Has acertado ${ totalSuccess }`;
 
     for (let i = 0; i < getAllSuccessPrizesTableRow.length; i++) {
       if (getAllSuccessPrizesTableRow[i].dataset.aciertos == totalSuccess) {
@@ -165,12 +163,12 @@ function playEuromillon() {
     }
   }
 
-  document.querySelector(".resultado").style.display = "block";
-  document.querySelector(".reintentar").addEventListener("click", () => resetGame() );
+  document.querySelector(".result").style.display = "block";
+  document.querySelector(".retry").addEventListener("click", () => resetGame() );
 
   function resetGame() {
     getAllSuccessPrizesTableRow[index].parentElement.classList.remove("acierto");
-    document.querySelectorAll(".resultado, .mensajeAciertos, .jugarEuromillon")
+    document.querySelectorAll(".result, .hitsMessage, .playEuromillon")
       .forEach(element => element.style.display = "none");
 
     deselectNumbersAndStars();
@@ -187,14 +185,14 @@ function playEuromillon() {
     successStarsQuantity = 0;
     totalSuccess = "";
 
-    combinationWinnerDiv.innerHTML = "";
+    winnerCombinationDiv.innerHTML = "";
     myCombinationDiv.innerHTML = "";
 
     goodLuckButton.disabled = false;
   }
 
   function deselectNumbersAndStars() {
-    let numbersAndStars = document.querySelectorAll(".estrellas input, .numeros input");
+    let numbersAndStars = document.querySelectorAll(".stars input, .numbers input");
     numbersAndStars.forEach((currentValue) => currentValue.checked = false);
   }
 }
