@@ -1,0 +1,140 @@
+$ticketColor: #f4511e;
+$winnerColor: #00e676;
+$white: #fff;
+
+.logo {
+  margin: 2.5em auto;
+  width: 100%;
+}
+
+.menu {
+  font-size: 1em;
+  margin: 2em 0;
+
+  .playButton,
+  .instructionsButton {
+    display: inline-block;
+    margin: 1em;
+  }
+}
+
+.principal {
+  margin: 0 0 3em 0;
+  overflow: hidden;
+}
+
+.play,
+.instructions,
+.result {
+  display: none;
+}
+
+.play {
+  .input-group-container > span {
+    display: flex;
+    flex: 1;
+  }
+}
+
+.starsContainer {
+  background-color: #ffee78;
+}
+
+.ticketContainer {
+  .luckyButton {
+    margin: 1.5em;
+  }
+}
+
+.ticket,
+.starsContainer {
+  border: 1px solid $ticketColor;
+  border-radius: 10px;
+  margin: 0 1em;
+  padding: 1em;
+
+  h3 {
+    color: $ticketColor;
+    margin: 0 0 1em 0;
+  }
+}
+
+.numbers,
+.starsContainer {
+  label {
+    display: inline-block;
+    margin: .4em;
+    width: 2em;
+
+    input {
+      display: none;
+
+      &:checked + span {
+        background-color: #333;
+        color: $white;
+      }
+    }
+
+    span {
+      background-color: $white;
+      border: 1px solid $ticketColor;
+      border-radius: 3px;
+      color: $ticketColor;
+      display: block;
+      line-height: 2em;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+}
+
+.playEuromillon {
+  display: none;
+  margin: 1em 0;
+  overflow: hidden;
+
+  .myCombination,
+  .winnerCombination {
+    float: left;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.5em;
+    letter-spacing: .1em;
+    width: 14em;
+  }
+}
+
+.toggleButton {
+  display: block;
+  height: 100%;
+}
+
+.hitsMessage {
+  background-color: $winnerColor;
+  color: $white;
+  display: none;
+  height: 4em;
+  line-height: 4em;
+  margin: auto auto 2em auto;
+  width: 12em;
+}
+
+.input-group-container {
+  width: 200px;
+  margin-right: 1em;
+}
+
+.retry {
+  margin: 2em 0;
+}
+
+.acierto {
+  animation: filaAcertada .8s infinite alternate;
+  background-color: $winnerColor;
+}
+
+@keyframes filaAcertada {
+  0%   { background-color: $winnerColor; }
+  100% { background-color: $white; }
+}

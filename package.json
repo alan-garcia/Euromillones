@@ -1,0 +1,19 @@
+{
+  "name": "euromillones",
+  "version": "2.0.0",
+  "description": "Juego del euromillones",
+  "main": "main.js",
+  "scripts": {
+    "compile:sass": "node-sass sass/main.scss css/main.css"
+  },
+  "author": "Alan García",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^4.14.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.1",
+    "jquery": "^3.5.1",
+    "sweetalert2": "^9.17.2"
+  }
+}

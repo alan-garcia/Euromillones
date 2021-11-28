@@ -8,8 +8,8 @@
   margin: 2em 0;
 }
 
-.menu .jugarButton,
-.menu .instruccionesButton {
+.menu .playButton,
+.menu .instructionsButton {
   display: inline-block;
   margin: 1em;
 }
@@ -19,60 +19,64 @@
   overflow: hidden;
 }
 
-.jugar,
-.instrucciones,
-.resultado {
+.play,
+.instructions,
+.result {
   display: none;
 }
 
-.jugar .input-group-container > span {
+.play .input-group-container > span {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
-.estrellasContainer {
-  background: #ffee78;
+.starsContainer {
+  background-color: #ffee78;
 }
 
-.boletoContainer .botonSuerte {
+.ticketContainer .luckyButton {
   margin: 1.5em;
 }
 
-.boleto,
-.estrellasContainer {
+.ticket,
+.starsContainer {
   border: 1px solid #f4511e;
   border-radius: 10px;
   margin: 0 1em;
   padding: 1em;
 }
 
-.boleto h3,
-.estrellasContainer h3 {
+.ticket h3,
+.starsContainer h3 {
   color: #f4511e;
   margin: 0 0 1em 0;
 }
 
-.numeros label,
-.estrellasContainer label {
+.numbers label,
+.starsContainer label {
   display: inline-block;
-  margin: 0.4em;
+  margin: .4em;
   width: 2em;
 }
 
-.numeros label input,
-.estrellasContainer label input {
+.numbers label input,
+.starsContainer label input {
   display: none;
 }
 
-.numeros label input:checked + span,
-.estrellasContainer label input:checked + span {
-  background: #333;
+.numbers label input:checked + span,
+.starsContainer label input:checked + span {
+  background-color: #333;
   color: #fff;
 }
 
-.numeros label span,
-.estrellasContainer label span {
-  background: #fff;
+.numbers label span,
+.starsContainer label span {
+  background-color: #fff;
   border: 1px solid #f4511e;
   border-radius: 3px;
   color: #f4511e;
@@ -80,42 +84,24 @@
   line-height: 2em;
 }
 
-.numeros label span:hover,
-.estrellasContainer label span:hover {
-  background: #e0e0e0;
+.numbers label span:hover,
+.starsContainer label span:hover {
+  background-color: #e0e0e0;
 }
 
-.jugarEuromillon {
+.playEuromillon {
   display: none;
   margin: 1em 0;
   overflow: hidden;
 }
 
-.jugarEuromillon .miCombinacion,
-.jugarEuromillon .combinacionGanadora {
+.playEuromillon .myCombination,
+.playEuromillon .winnerCombination {
   float: left;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1.5em;
-  letter-spacing: 0.1em;
+  letter-spacing: .1em;
   width: 14em;
-}
-
-.jugarEuromillon .tuApuesta,
-.jugarEuromillon .apuestaGanadora {
-  border-radius: 4px;
-  color: #fff;
-  display: inline-block;
-  height: 2em;
-  line-height: 2em;
-  width: 9em;
-}
-
-.jugarEuromillon .tuApuesta {
-  background: #40c4ff;
-}
-
-.jugarEuromillon .apuestaGanadora {
-  background: #00e676;
 }
 
 .toggleButton {
@@ -123,8 +109,8 @@
   height: 100%;
 }
 
-.mensajeAciertos {
-  background: #00e676;
+.hitsMessage {
+  background-color: #00e676;
   color: #fff;
   display: none;
   height: 4em;
@@ -138,20 +124,30 @@
   margin-right: 1em;
 }
 
-.reintentar {
+.retry {
   margin: 2em 0;
 }
 
 .acierto {
-  animation: filaAcertada .6s infinite alternate;
-  background: #00e676;
+  -webkit-animation: filaAcertada .8s infinite alternate;
+          animation: filaAcertada .8s infinite alternate;
+  background-color: #00e676;
+}
+
+@-webkit-keyframes filaAcertada {
+  0% {
+    background-color: #00e676;
+  }
+  100% {
+    background-color: #fff;
+  }
 }
 
 @keyframes filaAcertada {
   0% {
-    background: #00e676;
+    background-color: #00e676;
   }
   100% {
-    background: #fff;
+    background-color: #fff;
   }
 }
