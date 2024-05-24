@@ -28,8 +28,7 @@ function App() {
     if (numerosSeleccion.length === 5) return;
 
     setNumerosSeleccion(prevState => {
-      if (prevState.length === 5) return;
-      else if (prevState.includes(numero)) {
+      if (prevState.includes(numero)) {
         return prevState.filter(n => n !== numero);
       } else {
         return [...prevState, numero];
