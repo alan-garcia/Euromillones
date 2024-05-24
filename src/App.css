@@ -8,6 +8,8 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  --btn-primary: #00e676;
+  --btn-secondary: #0a81f0;
 }
 
 body {
