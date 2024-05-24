@@ -2,15 +2,52 @@ import { useState } from 'react';
 import logoEuromillones from '../src/img/logo-euromillones.png';
 import './App.css'
 
+const Casilla = ({ numero, isSelected, onClick }) => {
+  const className = `numero ${isSelected ? 'numero-selected' : ''}`;
+
+  return (
+    <div className={className} onClick={() => onClick(numero)}>
+      {numero}
+    </div>
+  )
+}
+
 function App() {
   const numeros = Array.from({ length: 50 }, (v, i) => i + 1);
   const estrellas = Array.from({ length: 12 }, (v, i) => i + 1);
 
   const [openJugar, setOpenJugar] = useState(false);
   const [openInstrucciones, setOpenInstrucciones] = useState(false);
+  const [numerosSeleccion, setNumerosSeleccion] = useState([]);
+  const [estrellasSeleccion, setEstrellasSeleccion] = useState([]);
 
   const jugar = () => setOpenJugar(!openJugar);
   const verInstrucciones = () => setOpenInstrucciones(!openInstrucciones);
+
+  const seleccionarNumeros = (numero) => {
+    if (numerosSeleccion.length === 5) return;
+
+    setNumerosSeleccion(prevState => {
+      if (prevState.length === 5) return;
+      else if (prevState.includes(numero)) {
+        return prevState.filter(n => n !== numero);
+      } else {
+        return [...prevState, numero];
+      }
+    });
+  };
+
+  const seleccionarEstrellas = (numero) => {
+    if (estrellasSeleccion.length === 2) return;
+
+    setEstrellasSeleccion(prevState => {
+      if (prevState.includes(numero)) {
+        return prevState.filter(n => n !== numero);
+      } else {
+        return [...prevState, numero];
+      }
+    });
+  };
   
   return (
     <main id="euromillones">
@@ -65,9 +102,9 @@ function App() {
             <div className="euromillones-jugar-numeros">
               {
                 numeros.map((numero) => (
-                  <div key={`num-${numero}`} className="numero">{numero}</div>
-                ))
-              }
+                  <Casilla key={`num-${numero}`} numero={numero} isSelected={numerosSeleccion.includes(numero)} onClick={seleccionarNumeros} />
+              ))
+            }
             </div>
           </div>
           <div className="euromillones-jugar-estrellas-container">
@@ -75,7 +112,7 @@ function App() {
             <div className="euromillones-jugar-numeros">
               {
                 estrellas.map((estrella) => (
-                  <div key={`est-${estrella}`} className="numero">{estrella}</div>
+                  <Casilla key={`est-${estrella}`} numero={estrella} isSelected={estrellasSeleccion.includes(estrella)} onClick={seleccionarEstrellas} />
                 ))
               }
             </div>
