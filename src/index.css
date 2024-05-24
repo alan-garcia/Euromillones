@@ -54,3 +54,25 @@
       }
     }
   }
+
+  #euromillones-instrucciones {
+    h2 {
+      margin: 1rem 0;
+    }
+  }
+  
+  #euromillones-instrucciones-premios {
+    margin: 2rem 0;
+  
+    h2 {
+      margin: 1rem 0;
+    }
+  
+    ul {
+      margin: 0 0 1rem 2rem;
+    }
+  }
+
+  .aviso {
+    color: red;
+  }
