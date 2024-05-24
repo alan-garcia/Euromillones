@@ -1,78 +1,129 @@
 #euromillones {
-    width: 800px;
+  width: 800px;
+}
+
+#euromillones-bienvenida {
+  margin: auto;
+  width: 100%;
+
+  #euromillones-bienvenida-container {
+    margin-bottom: 3rem;
+    text-align: center;
+    
+    p {
+      margin: 1rem 0;
+    }
+  
+    h2 {
+      margin: 1rem 0;
+    }
   }
   
-  #euromillones-bienvenida {
-    margin: auto;
-    width: 100%;
+  .euromillones-acciones {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
   
-    #euromillones-bienvenida-container {
-      margin-bottom: 3rem;
-      text-align: center;
-      
-      p {
-        margin: 1rem 0;
-      }
+  .euromillones-acciones-btn {
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: .7rem 1rem;
+    transition: .2s all ease-out;
+  }
+  
+  .euromillones-jugar-btn {
+    background-color: var(--btn-primary);
+    border: 1px solid color-mix(in srgb, var(--btn-primary), #000 10%);
     
-      h2 {
-        margin: 1rem 0;
-      }
+    &:hover {
+      background-color: color-mix(in srgb, var(--btn-primary), #000 15%);
+      border: 1px solid color-mix(in srgb, var(--btn-primary), #000 15%);
     }
-    
-    .euromillones-acciones {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
+  }
+  
+  .euromillones-instrucciones-btn {
+    background-color: var(--btn-secondary);
+    border: 1px solid color-mix(in srgb, var(--btn-secondary), #000 10%);
+  
+    &:hover {
+      background-color: color-mix(in srgb, var(--btn-secondary), #000 15%);
+      border: 1px solid color-mix(in srgb, var(--btn-secondary), #000 15%);
     }
-    
-    .euromillones-acciones-btn {
-      border-radius: 5px;
+  }
+}
+
+#euromillones-instrucciones {
+  h2 {
+    margin: 1rem 0;
+  }
+}
+
+#euromillones-instrucciones-premios {
+  margin: 2rem 0;
+
+  h2 {
+    margin: 1rem 0;
+  }
+
+  ul {
+    margin: 0 0 1rem 2rem;
+  }
+}
+
+.aviso {
+  color: red;
+}
+
+.euromillones-jugar-container,
+.euromillones-jugar-estrellas-container {
+  border: 1px solid #f4511e;
+  border-radius: 6px;
+  padding: 2rem;
+  width: 100%;
+  text-align: center;
+
+  h3 {
+    color: #f4511e;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .euromillones-jugar-numeros {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .numero {
+    background-color: #fff;
+    cursor: pointer;
+    border: 1px solid #f4511e;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    color: #f4511e;
+    transition: .3s all ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: #f4511e;
       color: #fff;
-      cursor: pointer;
-      font-size: 1rem;
-      padding: .7rem 1rem;
-      transition: .2s all ease-out;
-    }
-    
-    .euromillones-jugar-btn {
-      background-color: var(--btn-primary);
-      border: 1px solid color-mix(in srgb, var(--btn-primary), #000 10%);
-      
-      &:hover {
-        background-color: color-mix(in srgb, var(--btn-primary), #000 15%);
-        border: 1px solid color-mix(in srgb, var(--btn-primary), #000 15%);
-      }
-    }
-    
-    .euromillones-instrucciones-btn {
-      background-color: var(--btn-secondary);
-      border: 1px solid color-mix(in srgb, var(--btn-secondary), #000 10%);
-    
-      &:hover {
-        background-color: color-mix(in srgb, var(--btn-secondary), #000 15%);
-        border: 1px solid color-mix(in srgb, var(--btn-secondary), #000 15%);
-      }
     }
   }
 
-  #euromillones-instrucciones {
-    h2 {
-      margin: 1rem 0;
-    }
+  .numero-selected {
+    background-color: #f4511e;
+    color: #fff;
   }
-  
-  #euromillones-instrucciones-premios {
-    margin: 2rem 0;
-  
-    h2 {
-      margin: 1rem 0;
-    }
-  
-    ul {
-      margin: 0 0 1rem 2rem;
-    }
-  }
+}
 
-  .aviso {
-    color: red;
-  }
+.euromillones-jugar-estrellas-container {
+  background-color: #ffee78;
+}

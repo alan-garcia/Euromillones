@@ -3,8 +3,13 @@ import logoEuromillones from '../src/img/logo-euromillones.png';
 import './App.css'
 
 function App() {
+  const numeros = Array.from({ length: 50 }, (v, i) => i + 1);
+  const estrellas = Array.from({ length: 12 }, (v, i) => i + 1);
+
+  const [openJugar, setOpenJugar] = useState(false);
   const [openInstrucciones, setOpenInstrucciones] = useState(false);
 
+  const jugar = () => setOpenJugar(!openJugar);
   const verInstrucciones = () => setOpenInstrucciones(!openInstrucciones);
   
   return (
@@ -15,7 +20,7 @@ function App() {
           <p className='euromillones-descripcion'>Bienvenido al juego del sorteo del <strong>Euromillones</strong> de la Lotería del Estado. Pulse en cualquiera de los 2 botones de abajo para comenzar a interactuar con la aplicación.</p>
           <h2>¿Acepta el reto?</h2>
           <div className="euromillones-acciones">
-            <button className="euromillones-acciones-btn euromillones-jugar-btn">JUGAR</button>
+            <button className="euromillones-acciones-btn euromillones-jugar-btn" onClick={jugar}>JUGAR</button>
             <button className="euromillones-acciones-btn euromillones-instrucciones-btn" onClick={verInstrucciones}>INSTRUCCIONES</button>
           </div>
         </header>
@@ -52,6 +57,33 @@ function App() {
           )
         }
       </section>
+      <section id="euromillones-jugar">
+        { openJugar && (
+        <>
+          <div className="euromillones-jugar-container">
+            <h3>Números</h3>
+            <div className="euromillones-jugar-numeros">
+              {
+                numeros.map((numero) => (
+                  <div key={`num-${numero}`} className="numero">{numero}</div>
+                ))
+              }
+            </div>
+          </div>
+          <div className="euromillones-jugar-estrellas-container">
+            <h3>Estrellas</h3>
+            <div className="euromillones-jugar-numeros">
+              {
+                estrellas.map((estrella) => (
+                  <div key={`est-${estrella}`} className="numero">{estrella}</div>
+                ))
+              }
+            </div>
+          </div>
+          </>
+          )
+        }
+        </section>
     </main>
   )
 }
