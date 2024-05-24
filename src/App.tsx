@@ -18,6 +18,7 @@ function App() {
 
   const [openJugar, setOpenJugar] = useState(false);
   const [openInstrucciones, setOpenInstrucciones] = useState(false);
+  const [openProbarSuerte, setOpenProbarSuerte] = useState(false);
   const [numerosSeleccion, setNumerosSeleccion] = useState([]);
   const [estrellasSeleccion, setEstrellasSeleccion] = useState([]);
 
@@ -47,6 +48,10 @@ function App() {
       }
     });
   };
+
+  const probarSuerte = () => {
+    setOpenProbarSuerte(!openProbarSuerte);
+  }
   
   return (
     <main id="euromillones">
@@ -116,10 +121,97 @@ function App() {
               }
             </div>
           </div>
-          </>
-          )
-        }
-        </section>
+          <div className="euromillones-jugar-suerte-container">
+            <button className="euromillones-acciones-btn euromillones-suerte-btn" onClick={probarSuerte}>¡PROBAR SUERTE!</button>
+          </div>
+          <div className="euromillones-resultado-container">
+            { openProbarSuerte && (
+            <>
+              <div className="euromillones-resultado-tabla-premios-container">
+                <h3>Tabla de premios</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Categoría</th>
+                      <th>Aciertos (Números + Estrellas)</th>
+                      <th>Importe del premio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>5 + 2</td>
+                      <td className="importe">To the moon 🚀</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>5 + 1</td>
+                      <td className="importe">461.186,22 €</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>5 + 0</td>
+                      <td className="importe">21.557,46 €</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>4 + 2</td>
+                      <td className="importe">1.017,37 €</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>4 + 1</td>
+                      <td className="importe">138,36 €</td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>4 + 0</td>
+                      <td className="importe">51,72 €</td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>3 + 2</td>
+                      <td className="importe">49,99 €</td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>2 + 2</td>
+                      <td className="importe">11,35 €</td>
+                    </tr>
+                    <tr>
+                      <td>9</td>
+                      <td>3 + 1</td>
+                      <td className="importe">11,15 €</td>
+                    </tr>
+                    <tr>
+                      <td>10</td>
+                      <td>3 + 0</td>
+                      <td className="importe">10,38 €</td>
+                    </tr>
+                    <tr>
+                      <td>11</td>
+                      <td>1 + 2</td>
+                      <td className="importe">5,27 €</td>
+                    </tr>
+                    <tr>
+                      <td>12</td>
+                      <td>2 + 1</td>
+                      <td className="importe">5,03 €</td>
+                    </tr>
+                    <tr>
+                      <td>13</td>
+                      <td>2 + 0</td>
+                      <td className="importe">4,14 €</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
+          </div>
+        </>
+        )}
+      </section>
     </main>
   )
 }
