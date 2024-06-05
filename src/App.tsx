@@ -16,6 +16,22 @@ function App() {
   const numeros: number[] = Array.from({ length: 50 }, (_, i) => i + 1);
   const estrellas: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
 
+  const tablaPremios = [
+    { col1: '1', col2: '5 + 2', col3: 'To the moon 🚀' },
+    { col1: '2', col2: '5 + 1', col3: '461.186,22 €' },
+    { col1: '3', col2: '5 + 0', col3: '21.557,46 €' },
+    { col1: '4', col2: '4 + 2', col3: '1.017,37 €' },
+    { col1: '5', col2: '4 + 1', col3: '138,36 €' },
+    { col1: '6', col2: '4 + 0', col3: '51,72 €' },
+    { col1: '7', col2: '3 + 2', col3: '49,99 €' },
+    { col1: '8', col2: '2 + 2', col3: '11,35 €' },
+    { col1: '9', col2: '3 + 1', col3: '11,15 €' },
+    { col1: '10', col2: '3 + 0', col3: '10,38 €' },
+    { col1: '11', col2: '1 + 2', col3: '5,27 €' },
+    { col1: '12', col2: '2 + 1', col3: '5,03 €' },
+    { col1: '13', col2: '2 + 0', col3: '4,14 €' },
+  ];
+
   const [openJugar, setOpenJugar] = useState(false);
   const [openInstrucciones, setOpenInstrucciones] = useState(false);
   const [openProbarSuerte, setOpenProbarSuerte] = useState(false);
@@ -192,7 +208,7 @@ function App() {
                   Has acertado { aciertos() }
                 </div>
                 <div className="euromillones-jugar-suerte-container">
-                  <button className="euromillones-acciones-btn euromillones-reintentar-btn" onClick={jugarOtra}>JUGAR OTRA</button>
+                  <button className="euromillones-acciones-btn euromillones-reintentar-btn" onClick={jugarOtra}>JUGAR OTRA VEZ</button>
                 </div>
               </div>
 
@@ -207,71 +223,15 @@ function App() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>5 + 2</td>
-                      <td className="importe">To the moon 🚀</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>5 + 1</td>
-                      <td className="importe">461.186,22 €</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>5 + 0</td>
-                      <td className="importe">21.557,46 €</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>4 + 2</td>
-                      <td className="importe">1.017,37 €</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>4 + 1</td>
-                      <td className="importe">138,36 €</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>4 + 0</td>
-                      <td className="importe">51,72 €</td>
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td>3 + 2</td>
-                      <td className="importe">49,99 €</td>
-                    </tr>
-                    <tr>
-                      <td>8</td>
-                      <td>2 + 2</td>
-                      <td className="importe">11,35 €</td>
-                    </tr>
-                    <tr>
-                      <td>9</td>
-                      <td>3 + 1</td>
-                      <td className="importe">11,15 €</td>
-                    </tr>
-                    <tr>
-                      <td>10</td>
-                      <td>3 + 0</td>
-                      <td className="importe">10,38 €</td>
-                    </tr>
-                    <tr>
-                      <td>11</td>
-                      <td>1 + 2</td>
-                      <td className="importe">5,27 €</td>
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>2 + 1</td>
-                      <td className="importe">5,03 €</td>
-                    </tr>
-                    <tr>
-                      <td>13</td>
-                      <td>2 + 0</td>
-                      <td className="importe">4,14 €</td>
-                    </tr>
+                    {
+                      tablaPremios.map((fila) => (
+                        <tr key={fila.col1} className={`${ aciertos() === fila.col2 ? 'acierto': '' }`}>
+                          <td>{fila.col1}</td>
+                          <td>{fila.col2}</td>
+                          <td className="importe">{fila.col3}</td>
+                        </tr>
+                      ))
+                    }
                   </tbody>
                 </table>
               </div>

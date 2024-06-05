@@ -167,5 +167,9 @@
     .importe {
       text-align: right;
     }
+
+    .acierto {
+      background-color: rgb(80, 209, 80);
+    }
   }
 }
