@@ -137,6 +137,62 @@
   margin: 2rem 0 4rem 0;
 }
 
+.euromillones-resultado-aciertos-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+
+  span {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 1.25rem;
+    background-color: rgb(80, 209, 80);
+    color: #fff;
+  }
+}
+
+.euromillones-resultado-numeros {
+  div:first-of-type {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
+
+.euromillones-resultado-mis-numeros,
+.euromillones-resultado-combinacion-ganadora {
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+  text-align: center;
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+
+  div {
+    padding: .2rem;
+    text-align: center;
+  }
+  
+  span {
+    background-color: #eee;
+    padding: .3rem .5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
+
+.euromillones-resultado-mis-numeros {
+  div {
+    background-color: var(--btn-secondary);
+    color: #fff;
+  }
+}
+
+.euromillones-resultado-combinacion-ganadora {
+  div {
+    background-color: var(--btn-primary);
+  }
+}
+
 .euromillones-resultado-tabla-premios-container {
   margin-bottom: 4rem;
 
@@ -169,7 +225,7 @@
     }
 
     .acierto {
-      background-color: rgb(80, 209, 80);
+      background-color: var(--btn-primary);
     }
   }
 }

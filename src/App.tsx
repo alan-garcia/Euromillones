@@ -40,15 +40,15 @@ function App() {
   let [numerosGanadoresSeleccion, setNumerosGanadoresSeleccion] = useState<number[]>([]);
   let [estrellasGanadorasSeleccion, setEstrellasGanadorasSeleccion] = useState<number[]>([]);
 
-  const jugar = () => {
-    setOpenJugar(!openJugar);
-  }
+  const jugar = () => setOpenJugar(!openJugar);
+
   const jugarOtra = () => {
     setOpenProbarSuerte(!openProbarSuerte);
 
     numerosSeleccion.length = 0;
     estrellasSeleccion.length = 0;
   }
+
   const verInstrucciones = () => setOpenInstrucciones(!openInstrucciones);
 
   const seleccionarNumeros = (numero: number) => {
@@ -198,14 +198,18 @@ function App() {
             { openProbarSuerte && (
             <>
               <div className="euromillones-resultado-numeros">
-                <div className="euromillones-resultado-mis-numeros">
-                  <div>Mis numeros: {numerosSeleccion.map(item => item + " ")} | {estrellasSeleccion.map(item => item + " ")}</div>
+                <div>
+                  <div className="euromillones-resultado-mis-numeros">
+                    <div>Mis números</div>
+                    <span>{numerosSeleccion.map(item => item + " ")} + {estrellasSeleccion.map(item => item + " ")}</span>
+                  </div>
+                  <div className="euromillones-resultado-combinacion-ganadora">
+                    <div>Combinación ganadora</div>
+                    <span>{numerosGanadoresSeleccion.map(item => item + " ")} + {estrellasGanadorasSeleccion.map(item => item + " ")}</span>
+                  </div>
                 </div>
-                <div className="euromillones-resultado-combinacion-ganadora">
-                  <div>Combinación ganadora: {numerosGanadoresSeleccion.map(item => item + " ")} | {estrellasGanadorasSeleccion.map(item => item + " ")}</div>
-                </div>
-                <div className="euromillones-resultado-aciertos">
-                  Has acertado { aciertos() }
+                <div className="euromillones-resultado-aciertos-container">
+                  <span className="euromillones-resultado-aciertos">Has acertado { aciertos() }</span>
                 </div>
                 <div className="euromillones-jugar-suerte-container">
                   <button className="euromillones-acciones-btn euromillones-reintentar-btn" onClick={jugarOtra}>JUGAR OTRA VEZ</button>
