@@ -13,19 +13,21 @@ const Casilla = ({ numero, isSelected, onClick }) => {
 }
 
 function App() {
-  const numeros = Array.from({ length: 50 }, (v, i) => i + 1);
-  const estrellas = Array.from({ length: 12 }, (v, i) => i + 1);
+  const numeros: number[] = Array.from({ length: 50 }, (_, i) => i + 1);
+  const estrellas: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
 
   const [openJugar, setOpenJugar] = useState(false);
   const [openInstrucciones, setOpenInstrucciones] = useState(false);
   const [openProbarSuerte, setOpenProbarSuerte] = useState(false);
   const [numerosSeleccion, setNumerosSeleccion] = useState([]);
   const [estrellasSeleccion, setEstrellasSeleccion] = useState([]);
+  const [numerosGanadoresSeleccion, setNumerosGanadoresSeleccion] = useState([]);
+  const [estrellasGanadorasSeleccion, setEstrellasGanadorasSeleccion] = useState([]);
 
   const jugar = () => setOpenJugar(!openJugar);
   const verInstrucciones = () => setOpenInstrucciones(!openInstrucciones);
 
-  const seleccionarNumeros = (numero) => {
+  const seleccionarNumeros = (numero: number) => {
     if (numerosSeleccion.length === 5) return;
 
     setNumerosSeleccion(prevState => {
@@ -37,7 +39,7 @@ function App() {
     });
   };
 
-  const seleccionarEstrellas = (numero) => {
+  const seleccionarEstrellas = (numero: number) => {
     if (estrellasSeleccion.length === 2) return;
 
     setEstrellasSeleccion(prevState => {
@@ -51,6 +53,23 @@ function App() {
 
   const probarSuerte = () => {
     setOpenProbarSuerte(!openProbarSuerte);
+    generarCombinacionGanadora();
+  }
+
+  const generarCombinacionGanadora = () => {
+    for (let i = 0; i < 5; i++) {
+      const numero: number = Math.floor(Math.random() * 50) + 1;
+      numerosGanadoresSeleccion.push(numero);
+    }
+    numerosGanadoresSeleccion.sort();
+    setNumerosGanadoresSeleccion(numerosGanadoresSeleccion);
+
+    for (let i = 0; i < 2; i++) {
+      const estrella: number = Math.floor(Math.random() * 12) + 1;
+      estrellasGanadorasSeleccion.push(estrella);
+    }
+    estrellasGanadorasSeleccion.sort();
+    setEstrellasGanadorasSeleccion(estrellasGanadorasSeleccion);
   }
   
   return (
@@ -127,6 +146,19 @@ function App() {
           <div className="euromillones-resultado-container">
             { openProbarSuerte && (
             <>
+              <div className="euromillones-resultado-numeros">
+                <div className="euromillones-resultado-mis-numeros">
+                  <div>Mis numeros: {numerosSeleccion.map(item => item + " ")} | {estrellasSeleccion.map(item => item + " ")}</div>
+                </div>
+                <div className="euromillones-resultado-combinacion-ganadora">
+                  <div>Combinación ganadora: {numerosGanadoresSeleccion.map(item => item + " ")} | {estrellasGanadorasSeleccion.map(item => item + " ")}</div>
+                </div>
+                <div className="euromillones-resultado-aciertos">
+
+                </div>
+                <button className="euromillones-acciones-btn euromillones-reintentar-btn">JUGAR OTRA</button>
+              </div>
+
               <div className="euromillones-resultado-tabla-premios-container">
                 <h3>Tabla de premios</h3>
                 <table>

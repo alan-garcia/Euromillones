@@ -46,7 +46,8 @@
 }
 
 .euromillones-instrucciones-btn,
-.euromillones-suerte-btn {
+.euromillones-suerte-btn,
+.euromillones-reintentar-btn {
   background-color: var(--btn-secondary);
   border: 1px solid color-mix(in srgb, var(--btn-secondary), #000 10%);
 
