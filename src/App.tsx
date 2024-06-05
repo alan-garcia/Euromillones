@@ -2,7 +2,13 @@ import { useState } from 'react';
 import logoEuromillones from '../src/img/logo-euromillones.png';
 import './App.css'
 
-const Casilla = ({ numero, isSelected, onClick }) => {
+interface CasillaProps {
+  numero: number;
+  isSelected: boolean;
+  onClick: (numero: number) => void;
+}
+
+const Casilla: React.FC<CasillaProps> = ({ numero, isSelected, onClick }) => {
   const className = `numero ${isSelected ? 'numero-selected' : ''}`;
 
   return (
@@ -35,10 +41,10 @@ function App() {
   const [openJugar, setOpenJugar] = useState(false);
   const [openInstrucciones, setOpenInstrucciones] = useState(false);
   const [openProbarSuerte, setOpenProbarSuerte] = useState(false);
-  const [numerosSeleccion, setNumerosSeleccion] = useState([]);
-  const [estrellasSeleccion, setEstrellasSeleccion] = useState([]);
-  let [numerosGanadoresSeleccion, setNumerosGanadoresSeleccion] = useState<number[]>([]);
-  let [estrellasGanadorasSeleccion, setEstrellasGanadorasSeleccion] = useState<number[]>([]);
+  const [numerosSeleccion, setNumerosSeleccion] = useState<number[]>([]);
+  const [estrellasSeleccion, setEstrellasSeleccion] = useState<number[]>([]);
+  const [numerosGanadoresSeleccion, setNumerosGanadoresSeleccion] = useState<number[]>([]);
+  const [estrellasGanadorasSeleccion, setEstrellasGanadorasSeleccion] = useState<number[]>([]);
 
   const jugar = () => setOpenJugar(!openJugar);
 
@@ -93,9 +99,7 @@ function App() {
       const numero: number = Math.floor(Math.random() * (i + 1));
       [numerosPosibles[i], numerosPosibles[numero]] = [numerosPosibles[numero], numerosPosibles[i]];
     }
-
-    numerosGanadoresSeleccion = numerosPosibles.slice(0, 5);
-    setNumerosGanadoresSeleccion(numerosGanadoresSeleccion);
+    setNumerosGanadoresSeleccion(numerosPosibles.slice(0, 5));
 
     const estrellasPosibles = [];
     for (let j = 1; j <= 12; j++) {
@@ -106,9 +110,7 @@ function App() {
       const estrella: number = Math.floor(Math.random() * (j + 1));
       [estrellasPosibles[j], estrellasPosibles[estrella]] = [estrellasPosibles[estrella], estrellasPosibles[j]];
     }
-    
-    estrellasGanadorasSeleccion = estrellasPosibles.slice(0, 2);
-    setEstrellasGanadorasSeleccion(estrellasGanadorasSeleccion);
+    setEstrellasGanadorasSeleccion(estrellasPosibles.slice(0, 2));
   }
 
   const aciertos = (): string => {
