@@ -54,6 +54,7 @@ function App() {
   const probarSuerte = () => {
     setOpenProbarSuerte(!openProbarSuerte);
     generarCombinacionGanadora();
+    aciertos();
   }
 
   const generarCombinacionGanadora = () => {
@@ -69,21 +70,31 @@ function App() {
 
     numerosGanadoresSeleccion = numerosPosibles.slice(0, 5);
     setNumerosGanadoresSeleccion(numerosGanadoresSeleccion);
-    console.log(numerosPosibles);
 
     const estrellasPosibles = [];
-    for (let i = 1; i <= 12; i++) {
-      estrellasPosibles.push(i);
+    for (let j = 1; j <= 12; j++) {
+      estrellasPosibles.push(j);
     }
 
-    for (let i = estrellasPosibles.length - 1; i > 0; i--) {
-      const estrella: number = Math.floor(Math.random() * (i + 1));
-      [estrellasGanadorasSeleccion[i], estrellasGanadorasSeleccion[estrella]] = [estrellasGanadorasSeleccion[estrella], estrellasGanadorasSeleccion[i]];
+    for (let j = estrellasPosibles.length - 1; j > 0; j--) {
+      const estrella: number = Math.floor(Math.random() * (j + 1));
+      [estrellasPosibles[j], estrellasPosibles[estrella]] = [estrellasPosibles[estrella], estrellasPosibles[j]];
     }
     
     estrellasGanadorasSeleccion = estrellasPosibles.slice(0, 2);
     setEstrellasGanadorasSeleccion(estrellasGanadorasSeleccion);
-    console.log(estrellasGanadorasSeleccion);
+  }
+
+  const aciertos = (): string => {
+    let numerosAcertados: number[] = [];
+    let estrellasAcertadas: number[] = [];
+    let acertados: string = "";
+
+    numerosAcertados = numerosSeleccion.filter(n => numerosGanadoresSeleccion.includes(n));
+    estrellasAcertadas = estrellasSeleccion.filter(n => estrellasGanadorasSeleccion.includes(n));
+    acertados = numerosAcertados.length + " + " + estrellasAcertadas.length;
+    
+    return acertados;
   }
   
   return (
@@ -168,9 +179,11 @@ function App() {
                   <div>Combinación ganadora: {numerosGanadoresSeleccion.map(item => item + " ")} | {estrellasGanadorasSeleccion.map(item => item + " ")}</div>
                 </div>
                 <div className="euromillones-resultado-aciertos">
-
+                  Has acertado { aciertos() }
                 </div>
-                <button className="euromillones-acciones-btn euromillones-reintentar-btn">JUGAR OTRA</button>
+                <div className="euromillones-jugar-suerte-container">
+                  <button className="euromillones-acciones-btn euromillones-reintentar-btn">JUGAR OTRA</button>
+                </div>
               </div>
 
               <div className="euromillones-resultado-tabla-premios-container">
