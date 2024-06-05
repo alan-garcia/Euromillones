@@ -21,8 +21,8 @@ function App() {
   const [openProbarSuerte, setOpenProbarSuerte] = useState(false);
   const [numerosSeleccion, setNumerosSeleccion] = useState([]);
   const [estrellasSeleccion, setEstrellasSeleccion] = useState([]);
-  const [numerosGanadoresSeleccion, setNumerosGanadoresSeleccion] = useState([]);
-  const [estrellasGanadorasSeleccion, setEstrellasGanadorasSeleccion] = useState([]);
+  let [numerosGanadoresSeleccion, setNumerosGanadoresSeleccion] = useState<number[]>([]);
+  let [estrellasGanadorasSeleccion, setEstrellasGanadorasSeleccion] = useState<number[]>([]);
 
   const jugar = () => setOpenJugar(!openJugar);
   const verInstrucciones = () => setOpenInstrucciones(!openInstrucciones);
@@ -57,19 +57,33 @@ function App() {
   }
 
   const generarCombinacionGanadora = () => {
-    for (let i = 0; i < 5; i++) {
-      const numero: number = Math.floor(Math.random() * 50) + 1;
-      numerosGanadoresSeleccion.push(numero);
+    const numerosPosibles = [];
+    for (let i = 1; i <= 50; i++) {
+      numerosPosibles.push(i);
     }
-    numerosGanadoresSeleccion.sort();
-    setNumerosGanadoresSeleccion(numerosGanadoresSeleccion);
 
-    for (let i = 0; i < 2; i++) {
-      const estrella: number = Math.floor(Math.random() * 12) + 1;
-      estrellasGanadorasSeleccion.push(estrella);
+    for (let i = numerosPosibles.length - 1; i > 0; i--) {
+      const numero: number = Math.floor(Math.random() * (i + 1));
+      [numerosPosibles[i], numerosPosibles[numero]] = [numerosPosibles[numero], numerosPosibles[i]];
     }
-    estrellasGanadorasSeleccion.sort();
+
+    numerosGanadoresSeleccion = numerosPosibles.slice(0, 5);
+    setNumerosGanadoresSeleccion(numerosGanadoresSeleccion);
+    console.log(numerosPosibles);
+
+    const estrellasPosibles = [];
+    for (let i = 1; i <= 12; i++) {
+      estrellasPosibles.push(i);
+    }
+
+    for (let i = estrellasPosibles.length - 1; i > 0; i--) {
+      const estrella: number = Math.floor(Math.random() * (i + 1));
+      [estrellasGanadorasSeleccion[i], estrellasGanadorasSeleccion[estrella]] = [estrellasGanadorasSeleccion[estrella], estrellasGanadorasSeleccion[i]];
+    }
+    
+    estrellasGanadorasSeleccion = estrellasPosibles.slice(0, 2);
     setEstrellasGanadorasSeleccion(estrellasGanadorasSeleccion);
+    console.log(estrellasGanadorasSeleccion);
   }
   
   return (
