@@ -24,7 +24,15 @@ function App() {
   let [numerosGanadoresSeleccion, setNumerosGanadoresSeleccion] = useState<number[]>([]);
   let [estrellasGanadorasSeleccion, setEstrellasGanadorasSeleccion] = useState<number[]>([]);
 
-  const jugar = () => setOpenJugar(!openJugar);
+  const jugar = () => {
+    setOpenJugar(!openJugar);
+  }
+  const jugarOtra = () => {
+    setOpenProbarSuerte(!openProbarSuerte);
+
+    numerosSeleccion.length = 0;
+    estrellasSeleccion.length = 0;
+  }
   const verInstrucciones = () => setOpenInstrucciones(!openInstrucciones);
 
   const seleccionarNumeros = (numero: number) => {
@@ -52,9 +60,11 @@ function App() {
   };
 
   const probarSuerte = () => {
-    setOpenProbarSuerte(!openProbarSuerte);
-    generarCombinacionGanadora();
-    aciertos();
+    if (numerosSeleccion.length === 5 && estrellasSeleccion.length === 2) {
+      setOpenProbarSuerte(!openProbarSuerte);
+      generarCombinacionGanadora();
+      aciertos();
+    }
   }
 
   const generarCombinacionGanadora = () => {
@@ -166,7 +176,7 @@ function App() {
             </div>
           </div>
           <div className="euromillones-jugar-suerte-container">
-            <button className="euromillones-acciones-btn euromillones-suerte-btn" onClick={probarSuerte}>¡PROBAR SUERTE!</button>
+            <button className="euromillones-acciones-btn euromillones-suerte-btn" onClick={probarSuerte} disabled={openProbarSuerte}>¡PROBAR SUERTE!</button>
           </div>
           <div className="euromillones-resultado-container">
             { openProbarSuerte && (
@@ -182,7 +192,7 @@ function App() {
                   Has acertado { aciertos() }
                 </div>
                 <div className="euromillones-jugar-suerte-container">
-                  <button className="euromillones-acciones-btn euromillones-reintentar-btn">JUGAR OTRA</button>
+                  <button className="euromillones-acciones-btn euromillones-reintentar-btn" onClick={jugarOtra}>JUGAR OTRA</button>
                 </div>
               </div>
 
