@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Casillas, LimiteCasillasValidas, limiteNumerosSeleccionados, limiteEstrellasSeleccionadas, getNumerosGanadores, tablaPremios } from './euromillones';
 import logoEuromillones from '../src/img/logo-euromillones.png';
 import './App.css'
 
@@ -19,24 +20,8 @@ const Casilla: React.FC<CasillaProps> = ({ numero, isSelected, onClick }) => {
 }
 
 function App() {
-  const numeros: number[] = Array.from({ length: 50 }, (_, i) => i + 1);
-  const estrellas: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
-
-  const tablaPremios = [
-    { col1: '1', col2: '5 + 2', col3: 'To the moon 🚀' },
-    { col1: '2', col2: '5 + 1', col3: '461.186,22 €' },
-    { col1: '3', col2: '5 + 0', col3: '21.557,46 €' },
-    { col1: '4', col2: '4 + 2', col3: '1.017,37 €' },
-    { col1: '5', col2: '4 + 1', col3: '138,36 €' },
-    { col1: '6', col2: '4 + 0', col3: '51,72 €' },
-    { col1: '7', col2: '3 + 2', col3: '49,99 €' },
-    { col1: '8', col2: '2 + 2', col3: '11,35 €' },
-    { col1: '9', col2: '3 + 1', col3: '11,15 €' },
-    { col1: '10', col2: '3 + 0', col3: '10,38 €' },
-    { col1: '11', col2: '1 + 2', col3: '5,27 €' },
-    { col1: '12', col2: '2 + 1', col3: '5,03 €' },
-    { col1: '13', col2: '2 + 0', col3: '4,14 €' },
-  ];
+  const numeros: number[] = Array.from({ length: Casillas.NUMEROS }, (_, i) => i + 1);
+  const estrellas: number[] = Array.from({ length: Casillas.ESTRELLAS }, (_, i) => i + 1);
 
   const [openJugar, setOpenJugar] = useState(false);
   const [openInstrucciones, setOpenInstrucciones] = useState(false);
@@ -47,73 +32,56 @@ function App() {
   const [estrellasGanadorasSeleccion, setEstrellasGanadorasSeleccion] = useState<number[]>([]);
 
   const jugar = () => setOpenJugar(!openJugar);
+  const verInstrucciones = () => setOpenInstrucciones(!openInstrucciones);
 
-  const jugarOtra = () => {
+  const jugarOtraVez = () => {
     setOpenProbarSuerte(!openProbarSuerte);
 
     numerosSeleccion.length = 0;
     estrellasSeleccion.length = 0;
   }
 
-  const verInstrucciones = () => setOpenInstrucciones(!openInstrucciones);
+  const seleccionarNumeros = (numeroSeleccionado: number) => {
+    if (limiteNumerosSeleccionados(numerosSeleccion)) return;
 
-  const seleccionarNumeros = (numero: number) => {
-    if (numerosSeleccion.length === 5) return;
-
-    setNumerosSeleccion(prevState => {
-      if (prevState.includes(numero)) {
-        return prevState.filter(n => n !== numero);
+    setNumerosSeleccion(listaNumeros => {
+      if (listaNumeros.includes(numeroSeleccionado)) {
+        return listaNumeros.filter(num => num !== numeroSeleccionado);
       } else {
-        return [...prevState, numero];
+        return [...listaNumeros, numeroSeleccionado];
       }
     });
   };
 
-  const seleccionarEstrellas = (numero: number) => {
-    if (estrellasSeleccion.length === 2) return;
+  const seleccionarEstrellas = (numeroSelecionado: number) => {
+    if (limiteEstrellasSeleccionadas(estrellasSeleccion)) return;
 
-    setEstrellasSeleccion(prevState => {
-      if (prevState.includes(numero)) {
-        return prevState.filter(n => n !== numero);
+    setEstrellasSeleccion(listaNumeros => {
+      if (listaNumeros.includes(numeroSelecionado)) {
+        return listaNumeros.filter(num => num !== numeroSelecionado);
       } else {
-        return [...prevState, numero];
+        return [...listaNumeros, numeroSelecionado];
       }
     });
   };
 
   const probarSuerte = () => {
-    if (numerosSeleccion.length === 5 && estrellasSeleccion.length === 2) {
+    if (limiteNumerosSeleccionados(numerosSeleccion) && limiteEstrellasSeleccionadas(estrellasSeleccion)) {
       setOpenProbarSuerte(!openProbarSuerte);
       generarCombinacionGanadora();
-      aciertos();
+      getNumeroAciertos();
     }
   }
 
   const generarCombinacionGanadora = () => {
-    const numerosPosibles = [];
-    for (let i = 1; i <= 50; i++) {
-      numerosPosibles.push(i);
-    }
+    const numerosPosibles = getNumerosGanadores(Casillas.NUMEROS, LimiteCasillasValidas.NUMEROS);
+    const estrellasPosibles = getNumerosGanadores(Casillas.ESTRELLAS, LimiteCasillasValidas.ESTRELLAS);
 
-    for (let i = numerosPosibles.length - 1; i > 0; i--) {
-      const numero: number = Math.floor(Math.random() * (i + 1));
-      [numerosPosibles[i], numerosPosibles[numero]] = [numerosPosibles[numero], numerosPosibles[i]];
-    }
-    setNumerosGanadoresSeleccion(numerosPosibles.slice(0, 5));
-
-    const estrellasPosibles = [];
-    for (let j = 1; j <= 12; j++) {
-      estrellasPosibles.push(j);
-    }
-
-    for (let j = estrellasPosibles.length - 1; j > 0; j--) {
-      const estrella: number = Math.floor(Math.random() * (j + 1));
-      [estrellasPosibles[j], estrellasPosibles[estrella]] = [estrellasPosibles[estrella], estrellasPosibles[j]];
-    }
-    setEstrellasGanadorasSeleccion(estrellasPosibles.slice(0, 2));
+    setNumerosGanadoresSeleccion(numerosPosibles);
+    setEstrellasGanadorasSeleccion(estrellasPosibles);
   }
 
-  const aciertos = (): string => {
+  const getNumeroAciertos = (): string => {
     let numerosAcertados: number[] = [];
     let estrellasAcertadas: number[] = [];
     let acertados: string = "";
@@ -211,10 +179,10 @@ function App() {
                   </div>
                 </div>
                 <div className="euromillones-resultado-aciertos-container">
-                  <span className="euromillones-resultado-aciertos">Has acertado { aciertos() }</span>
+                  <span className="euromillones-resultado-aciertos">Has acertado { getNumeroAciertos() }</span>
                 </div>
                 <div className="euromillones-jugar-suerte-container">
-                  <button className="euromillones-acciones-btn euromillones-reintentar-btn" onClick={jugarOtra}>JUGAR OTRA VEZ</button>
+                  <button className="euromillones-acciones-btn euromillones-reintentar-btn" onClick={jugarOtraVez}>JUGAR OTRA VEZ</button>
                 </div>
               </div>
 
@@ -231,10 +199,10 @@ function App() {
                   <tbody>
                     {
                       tablaPremios.map((fila) => (
-                        <tr key={fila.col1} className={`${ aciertos() === fila.col2 ? 'acierto': '' }`}>
-                          <td>{fila.col1}</td>
-                          <td>{fila.col2}</td>
-                          <td className="importe">{fila.col3}</td>
+                        <tr key={fila.categoria} className={`${ getNumeroAciertos() === fila.aciertos ? 'acierto': '' }`}>
+                          <td>{fila.categoria}</td>
+                          <td>{fila.aciertos}</td>
+                          <td className="importe">{fila.importe}</td>
                         </tr>
                       ))
                     }
