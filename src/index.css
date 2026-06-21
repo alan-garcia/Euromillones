@@ -209,46 +209,46 @@
   margin-bottom: 4rem;
   width: 800px;
 
-  h3 {
+  & h3 {
     font-size: 2rem;
     margin-bottom: 1rem;
   }
 
-  table {
+  & table {
     border-collapse: collapse;
     width: 100%;
 
-    thead {
+    & thead {
       background-color: #424242;
       color: var(--color-letras);
     }
 
-    tbody {
+    & tbody {
       text-align: center;
     }
 
-    th,
-    td {
+    & th,
+    & td {
       border: 1px solid #DDD;
       padding: .8rem;
     }
 
-    .importe {
+    & .importe {
       text-align: right;
     }
 
-    .acierto {
+    & .acierto {
       background-color: var(--btn-primary);
       animation: filaAcertada .8s infinite alternate;
     }
+  }
+}
 
-    @keyframes filaAcertada {
-      0% {
-        background-color: var(--btn-primary);
-      }
-      100% {
-        background-color: var(--color-letras);
-      }
-    }
+@keyframes filaAcertada {
+  0% {
+    background-color: var(--btn-primary);
+  }
+  100% {
+    background-color: var(--color-letras);
   }
 }
