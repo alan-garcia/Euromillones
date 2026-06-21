@@ -1,5 +1,6 @@
 #euromillones {
-  width: 800px;
+  display: inline-block;
+  width: 991px;
 }
 
 #euromillones-bienvenida {
@@ -23,16 +24,20 @@
 .euromillones-acciones {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .euromillones-acciones-btn {
   border-radius: 5px;
-  color: #fff;
+  color: var(--color-letras);
   cursor: pointer;
   font-size: 1rem;
-  padding: .7rem 1rem;
+  padding: 1rem 1.5rem;
   transition: .2s all ease-out;
+}
+
+#euromillones-jugar {
+  margin-bottom: 3rem;
 }
 
 .euromillones-jugar-btn {
@@ -76,19 +81,19 @@
 }
 
 .aviso {
-  color: red;
+  color: var(--casilla-numeros);
 }
 
 .euromillones-jugar-container,
 .euromillones-jugar-estrellas-container {
-  border: 1px solid #f4511e;
+  border: 1px solid var(--casilla-numeros);
   border-radius: 6px;
   padding: 1rem 2rem 2rem 2rem;
   width: 100%;
   text-align: center;
 
   h3 {
-    color: #f4511e;
+    color: var(--casilla-numeros);
     font-size: 2rem;
     margin-bottom: 2rem;
     text-align: center;
@@ -98,36 +103,38 @@
     display: flex;
     flex-flow: wrap;
     justify-content: center;
-    gap: 15px;
+    gap: 1rem;
   }
 
   .numero {
-    background-color: #fff;
+    background-color: var(--color-letras);
     cursor: pointer;
-    border: 1px solid #f4511e;
+    border: 1px solid var(--casilla-numeros);
     border-radius: 5px;
-    width: 40px;
-    height: 40px;
-    color: #f4511e;
+    width: 50px;
+    height: 45px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--casilla-numeros);
     transition: .3s all ease-out;
     display: flex;
     justify-content: center;
     align-items: center;
 
     &:hover {
-      background-color: #f4511e;
-      color: #fff;
+      background-color: var(--casilla-numeros);
+      color: var(--color-letras);
     }
   }
 
   .numero-selected {
-    background-color: #f4511e;
-    color: #fff;
+    background-color: var(--casilla-numeros);
+    color: var(--color-letras);
   }
 }
 
 .euromillones-jugar-estrellas-container {
-  background-color: #ffee78;
+  background-color: #FFEE58;
 }
 
 .euromillones-jugar-suerte-container,
@@ -146,9 +153,13 @@
     display: inline-block;
     border-radius: 5px;
     padding: 1.25rem;
-    background-color: rgb(80, 209, 80);
-    color: #fff;
+    background-color: var(--btn-primary);
+    color: var(--color-letras);
   }
+}
+
+.euromillones-resultado-container {
+  margin-top: 4rem;
 }
 
 .euromillones-resultado-numeros {
@@ -164,16 +175,16 @@
   justify-content: center;
   flex-flow: column wrap;
   text-align: center;
-  border: 1px solid #ddd;
+  border: 1px solid #DDD;
   margin-bottom: 1rem;
 
   div {
-    padding: .2rem;
+    padding: .5rem;
     text-align: center;
   }
   
   span {
-    background-color: #eee;
+    background-color: #EEE;
     padding: .3rem .5rem;
     font-size: 1.5rem;
     font-weight: 700;
@@ -183,18 +194,20 @@
 .euromillones-resultado-mis-numeros {
   div {
     background-color: var(--btn-secondary);
-    color: #fff;
+    color: var(--color-letras);
   }
 }
 
 .euromillones-resultado-combinacion-ganadora {
   div {
     background-color: var(--btn-primary);
+    color: var(--color-letras);
   }
 }
 
 .euromillones-resultado-tabla-premios-container {
   margin-bottom: 4rem;
+  width: 800px;
 
   h3 {
     font-size: 2rem;
@@ -206,8 +219,8 @@
     width: 100%;
 
     thead {
-      background-color: #444;
-      color: #fff;
+      background-color: #424242;
+      color: var(--color-letras);
     }
 
     tbody {
@@ -216,7 +229,7 @@
 
     th,
     td {
-      border: 1px solid #ddd;
+      border: 1px solid #DDD;
       padding: .8rem;
     }
 
@@ -226,6 +239,16 @@
 
     .acierto {
       background-color: var(--btn-primary);
+      animation: filaAcertada .8s infinite alternate;
+    }
+
+    @keyframes filaAcertada {
+      0% {
+        background-color: var(--btn-primary);
+      }
+      100% {
+        background-color: var(--color-letras);
+      }
     }
   }
 }
