@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export enum Casillas {
     NUMEROS = 50,
     ESTRELLAS = 12
@@ -16,20 +18,13 @@ export const limiteEstrellasSeleccionadas = (numeros: number[]) => {
     return numeros.length === LimiteCasillasValidas.ESTRELLAS;
 }
 
-export const getNumerosGanadores = (numeroMaximo: number, numeroLimite: number) => {
-    const numerosPosibles = [];
-
-    for (let i = 1; i <= numeroMaximo; i++) {
-      numerosPosibles.push(i);
-    }
-
-    for (let i = numerosPosibles.length - 1; i > 0; i--) {
-      const numero: number = Math.floor(Math.random() * (i + 1));
-      [numerosPosibles[i], numerosPosibles[numero]] = [numerosPosibles[numero], numerosPosibles[i]];
-    }
-
-    return numerosPosibles.slice(0, numeroLimite);
-}
+export const mostrarMensajeAlerta = (titulo: string, mensaje: string) => {
+    Swal.fire({
+      title: titulo,
+      text: mensaje,
+      icon: "warning"
+    });
+  }
 
 export const tablaPremios = [
     { categoria: '1', aciertos: '5 + 2', importe: 'To the moon 🚀' },

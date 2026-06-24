@@ -1,6 +1,7 @@
 #euromillones {
-  display: inline-block;
-  width: 991px;
+  width: 100%;
+  max-width: 991px;
+  margin: 0 auto;
 }
 
 #euromillones-bienvenida {
@@ -250,5 +251,110 @@
   }
   100% {
     background-color: var(--color-letras);
+  }
+}
+
+/* =========================
+   TABLET (<= 1024px)
+========================= */
+@media (max-width: 1024px) {
+  #euromillones {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .euromillones-resultado-tabla-premios-container {
+    width: 100%;
+  }
+
+  .euromillones-resultado-numeros div:first-of-type {
+    flex-direction: column;
+  }
+}
+
+/* =========================
+   MOBILE (<= 768px)
+========================= */
+@media (max-width: 768px) {
+  body {
+    margin: 0;
+    height: auto;
+  }
+
+  #euromillones {
+    width: 100%;
+  }
+
+  #euromillones-bienvenida-container img {
+    width: 320px;
+    height: auto;
+  }
+
+  .euromillones-acciones {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .euromillones-acciones-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .euromillones-jugar-container,
+  .euromillones-jugar-estrellas-container {
+    padding: 1rem;
+  }
+
+  .euromillones-jugar-container h3,
+  .euromillones-jugar-estrellas-container h3 {
+    font-size: 1.5rem;
+  }
+
+  .euromillones-jugar-numeros {
+    gap: .5rem;
+  }
+
+  .numero {
+    width: 42px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .euromillones-resultado-numeros div:first-of-type {
+    flex-direction: column;
+  }
+
+  .euromillones-resultado-aciertos-container span {
+    text-align: center;
+  }
+
+  .euromillones-resultado-tabla-premios-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .euromillones-resultado-tabla-premios-container table {
+    min-width: 600px;
+  }
+}
+
+/* =========================
+   MOBILE PEQUEÑO (<= 480px)
+========================= */
+@media (max-width: 480px) {
+  .numero {
+    width: 36px;
+    height: 36px;
+    font-size: .9rem;
+  }
+
+  .euromillones-acciones-btn {
+    font-size: .9rem;
+    padding: .8rem 1rem;
+  }
+
+  .euromillones-resultado-mis-numeros span,
+  .euromillones-resultado-combinacion-ganadora span {
+    font-size: 1.1rem;
   }
 }
