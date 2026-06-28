@@ -1,30 +1,19 @@
-import Swal from "sweetalert2";
-
-export enum Casillas {
-    NUMEROS = 50,
-    ESTRELLAS = 12
-}
-
-export enum LimiteCasillasValidas {
-    NUMEROS = 5,
-    ESTRELLAS = 2
+export const EuromillonesConfig = {
+    totalNumeros: 50,
+    totalEstrellas: 12,
+    rangoNumeros: [1, 50] as [number, number],
+    rangoEstrellas: [1, 12] as [number, number],
+    numerosValidos: 5,
+    estrellasValidas: 2,
 }
 
 export const limiteNumerosSeleccionados = (numeros: number[]) => {
-    return numeros.length === LimiteCasillasValidas.NUMEROS;
+    return numeros.length === EuromillonesConfig.numerosValidos;
 }
 
 export const limiteEstrellasSeleccionadas = (numeros: number[]) => {
-    return numeros.length === LimiteCasillasValidas.ESTRELLAS;
+    return numeros.length === EuromillonesConfig.estrellasValidas;
 }
-
-export const mostrarMensajeAlerta = (titulo: string, mensaje: string) => {
-    Swal.fire({
-      title: titulo,
-      text: mensaje,
-      icon: "warning"
-    });
-  }
 
 export const tablaPremios = [
     { categoria: '1', aciertos: '5 + 2', importe: 'To the moon 🚀' },

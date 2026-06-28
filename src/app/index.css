@@ -1,3 +1,6 @@
+/* ================== */
+/* SECCIÓN BIENVENIDA */
+/* ================== */
 #euromillones {
   width: 100%;
   max-width: 991px;
@@ -10,7 +13,7 @@
 }
 
 #euromillones-bienvenida-container {
-  margin-bottom: 3rem;
+  margin: 3rem;
   text-align: center;
   
   p {
@@ -34,11 +37,6 @@
   cursor: pointer;
   font-size: 1rem;
   padding: 1rem 1.5rem;
-  transition: .2s all ease-out;
-}
-
-#euromillones-jugar {
-  margin-bottom: 3rem;
 }
 
 .euromillones-jugar-btn {
@@ -49,6 +47,27 @@
     background-color: color-mix(in srgb, var(--btn-primary), #000 15%);
     border: 1px solid color-mix(in srgb, var(--btn-primary), #000 15%);
   }
+}
+
+/* ===================== */
+/* SECCIÓN INSTRUCCIONES */
+/* ===================== */
+#euromillones-instrucciones {
+  h2 {
+    margin: 1rem 0;
+  }
+}
+
+#euromillones-instrucciones-premios {
+  margin: 2rem 0;
+
+  ul {
+    margin: 0 0 1rem 2rem;
+  }
+}
+
+.aviso {
+  color: var(--casilla-numeros);
 }
 
 .euromillones-instrucciones-btn,
@@ -63,30 +82,37 @@
   }
 }
 
-#euromillones-instrucciones {
-  h2 {
-    margin: 1rem 0;
-  }
+#euromillones-instrucciones,
+#euromillones-jugar,
+#euromillones-resultado-suerte {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .5s ease, opacity .4s ease;
 }
 
-#euromillones-instrucciones-premios {
-  margin: 2rem 0;
-
-  h2 {
-    margin: 1rem 0;
-  }
-
-  ul {
-    margin: 0 0 1rem 2rem;
-  }
+#euromillones-instrucciones.instrucciones,
+#euromillones-jugar.jugar,
+#euromillones-resultado-suerte.suerte {
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
-.aviso {
-  color: var(--casilla-numeros);
+#euromillones-instrucciones .acordeon,
+#euromillones-jugar .acordeon,
+#euromillones-resultado-suerte .acordeon {
+  overflow: hidden;
+}
+
+/* ============= */
+/* SECCIÓN JUGAR */
+/* ============= */
+#euromillones-resultado-suerte {
+  margin-top: 4rem;
 }
 
 .euromillones-jugar-container,
-.euromillones-jugar-estrellas-container {
+.euromillones-jugar-estrellas {
   border: 1px solid var(--casilla-numeros);
   border-radius: 6px;
   padding: 1rem 2rem 2rem 2rem;
@@ -132,23 +158,27 @@
     background-color: var(--casilla-numeros);
     color: var(--color-letras);
   }
+
+  .numero-disabled {
+    pointer-events: none;
+    opacity: .6;
+  }
 }
 
-.euromillones-jugar-estrellas-container {
+.euromillones-jugar-estrellas {
   background-color: #FFEE58;
 }
 
-.euromillones-jugar-suerte-container,
-.euromillones-jugar-reintentar-container {
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0 4rem 0;
-}
-
-.euromillones-resultado-aciertos-container {
+.euromillones-jugar-suerte {
   display: flex;
   justify-content: center;
   margin: 2rem 0;
+}
+
+.euromillones-resultado-aciertos {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 
   span {
     display: inline-block;
@@ -157,10 +187,6 @@
     background-color: var(--btn-primary);
     color: var(--color-letras);
   }
-}
-
-.euromillones-resultado-container {
-  margin-top: 4rem;
 }
 
 .euromillones-resultado-numeros {
@@ -206,7 +232,7 @@
   }
 }
 
-.euromillones-resultado-tabla-premios-container {
+.euromillones-resultado-tabla-premios {
   margin-bottom: 4rem;
   width: 800px;
 
@@ -254,16 +280,20 @@
   }
 }
 
-/* =========================
-   TABLET (<= 1024px)
-========================= */
+/* ================== */
+/* SECCIÓN RESPONSIVE */
+/* ================== */
+
+/* ================== */
+/* TABLET (<= 1024px) */
+/* ================== */
 @media (max-width: 1024px) {
   #euromillones {
     width: 100%;
     padding: 1rem;
   }
 
-  .euromillones-resultado-tabla-premios-container {
+  .euromillones-resultado-tabla-premios {
     width: 100%;
   }
 
@@ -272,9 +302,9 @@
   }
 }
 
-/* =========================
-   MOBILE (<= 768px)
-========================= */
+/* ================= */
+/* MOBILE (<= 768px) */
+/* ================= */
 @media (max-width: 768px) {
   body {
     margin: 0;
@@ -301,16 +331,16 @@
   }
 
   .euromillones-jugar-container,
-  .euromillones-jugar-estrellas-container {
+  .euromillones-jugar-estrellas {
     padding: 1rem;
   }
 
   .euromillones-jugar-container h3,
-  .euromillones-jugar-estrellas-container h3 {
+  .euromillones-jugar-estrellas h3 {
     font-size: 1.5rem;
   }
 
-  .euromillones-jugar-numeros {
+  .euromillones-jugar-container {
     gap: .5rem;
   }
 
@@ -324,23 +354,23 @@
     flex-direction: column;
   }
 
-  .euromillones-resultado-aciertos-container span {
+  .euromillones-resultado-aciertos span {
     text-align: center;
   }
 
-  .euromillones-resultado-tabla-premios-container {
+  .euromillones-resultado-tabla-premios {
     width: 100%;
     overflow-x: auto;
   }
 
-  .euromillones-resultado-tabla-premios-container table {
+  .euromillones-resultado-tabla-premios table {
     min-width: 600px;
   }
 }
 
-/* =========================
-   MOBILE PEQUEÑO (<= 480px)
-========================= */
+/* ========================= */
+/* MOBILE PEQUEÑO (<= 480px) */
+/* ========================= */
 @media (max-width: 480px) {
   .numero {
     width: 36px;

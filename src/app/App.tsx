@@ -1,18 +1,17 @@
 import { useState } from 'react';
-import { Casillas, LimiteCasillasValidas, limiteNumerosSeleccionados, limiteEstrellasSeleccionadas, tablaPremios, mostrarMensajeAlerta } from '../euromillones';
+import { tablaPremios, EuromillonesConfig, limiteNumerosSeleccionados, limiteEstrellasSeleccionadas } from './config/euromillonesConfig';
 import logoEuromillones from '../img/logo-euromillones.png';
 import './App.css'
-import { EuromillonesInstrucciones } from './components/EuromillonesInstrucciones';
-import { EuromillonesJugar } from './components/EuromillonesJugar';
+import { Casilla } from './ui/Casilla';
+import { notificacion } from './infra/notifications';
 
 function App() {
-  const numeros: number[] = Array.from({ length: Casillas.NUMEROS }, (_, i) => i + 1);
-  const estrellas: number[] = Array.from({ length: Casillas.ESTRELLAS }, (_, i) => i + 1);
-
+  const numeros: number[] = Array.from({ length: EuromillonesConfig.totalNumeros }, (_, i) => i + 1);
+  const estrellas: number[] = Array.from({ length: EuromillonesConfig.totalEstrellas }, (_, i) => i + 1);
   const [openJugar, setOpenJugar] = useState(false);
   const [openInstrucciones, setOpenInstrucciones] = useState(false);
   const [juegoIniciado, setJuegoIniciado] = useState(false);
-  const [numerosSeleccion, setNumerosSeleccion] = useState<number[]>([]);
+  const [numerosSeleccionados, setNumerosSeleccionados] = useState<number[]>([]);
   const [estrellasSeleccion, setEstrellasSeleccion] = useState<number[]>([]);
   const [numerosGanadoresSeleccion, setNumerosGanadoresSeleccion] = useState<number[]>([]);
   const [estrellasGanadorasSeleccion, setEstrellasGanadorasSeleccion] = useState<number[]>([]);
@@ -23,23 +22,23 @@ function App() {
   const jugarOtraVez = () => {
     setJuegoIniciado(false);
 
-    setNumerosSeleccion([]);
+    setNumerosSeleccionados([]);
     setEstrellasSeleccion([]);
     setNumerosGanadoresSeleccion([]);
     setEstrellasGanadorasSeleccion([]);
   }
 
   const seleccionarNumeros = (numeroSeleccionado: number) => {
-    setNumerosSeleccion(lista => {
+    setNumerosSeleccionados(lista => {
       if (lista.includes(numeroSeleccionado)) {
         return lista.filter(num => num !== numeroSeleccionado);
       }
 
-      if (lista.length < LimiteCasillasValidas.NUMEROS) {
+      if (lista.length < EuromillonesConfig.numerosValidos) {
         return [...lista, numeroSeleccionado];
       }
       
-      mostrarMensajeAlerta("¡Cuidado!", `Solo puedes seleccionar ${LimiteCasillasValidas.NUMEROS} números. Para rectificar, haga click en un número ya seleccionado.`);
+      notificacion.warn("¡Cuidado!", `Solo puedes seleccionar ${EuromillonesConfig.numerosValidos} números. Para rectificar, haga click en un número ya seleccionado.`);
 
       return lista;
     });
@@ -51,30 +50,30 @@ function App() {
         return lista.filter(num => num !== numeroSeleccionado);
       }
 
-      if (lista.length < LimiteCasillasValidas.ESTRELLAS) {
+      if (lista.length < EuromillonesConfig.estrellasValidas) {
         return [...lista, numeroSeleccionado];
       }
 
-      mostrarMensajeAlerta("¡Cuidado!", `Solo puedes seleccionar ${LimiteCasillasValidas.ESTRELLAS} estrellas. Para rectificar, haga click en una estrella ya seleccionada.`);
+      notificacion.warn("¡Cuidado!", `Solo puedes seleccionar ${EuromillonesConfig.estrellasValidas} estrellas. Para rectificar, haga click en una estrella ya seleccionada.`);
 
       return lista;
     });
   };
 
   const probarSuerte = () => {
-    if (limiteNumerosSeleccionados(numerosSeleccion) && limiteEstrellasSeleccionadas(estrellasSeleccion)) {
-      setJuegoIniciado(true);
-      generarCombinacionGanadora();
-      getNumeroAciertos();
+    if (!limiteNumerosSeleccionados(numerosSeleccionados) || !limiteEstrellasSeleccionadas(estrellasSeleccion)) {
+      notificacion.warn("¡Cuidado!", `Tienes que seleccionar obligatoriamente ${ EuromillonesConfig.numerosValidos } números y ${ EuromillonesConfig.estrellasValidas } estrellas.`);
+      return;
     }
-    else {
-      mostrarMensajeAlerta("¡Cuidado!", `Tienes que seleccionar obligatoriamente ${ LimiteCasillasValidas.NUMEROS } números y ${ LimiteCasillasValidas.ESTRELLAS } estrellas.`);
-    }
+
+    setJuegoIniciado(true);
+    generarCombinacionGanadora();
+    getNumeroAciertos();
   }
 
   const generarCombinacionGanadora = () => {
-    const numerosPosibles = getNumerosGanadores(Casillas.NUMEROS, LimiteCasillasValidas.NUMEROS);
-    const estrellasPosibles = getNumerosGanadores(Casillas.ESTRELLAS, LimiteCasillasValidas.ESTRELLAS);
+    const numerosPosibles = getNumerosGanadores(EuromillonesConfig.totalNumeros, EuromillonesConfig.numerosValidos);
+    const estrellasPosibles = getNumerosGanadores(EuromillonesConfig.totalEstrellas, EuromillonesConfig.estrellasValidas);
 
     setNumerosGanadoresSeleccion(numerosPosibles);
     setEstrellasGanadorasSeleccion(estrellasPosibles);
@@ -85,27 +84,25 @@ function App() {
     let estrellasAcertadas: number[] = [];
     let acertados: string = "";
 
-    numerosAcertados = numerosSeleccion.filter(n => numerosGanadoresSeleccion.includes(n));
+    console.log(numerosSeleccionados)
+    console.log(estrellasSeleccion)
+    numerosAcertados = numerosSeleccionados.filter(n => numerosGanadoresSeleccion.includes(n));
     estrellasAcertadas = estrellasSeleccion.filter(n => estrellasGanadorasSeleccion.includes(n));
     acertados = numerosAcertados.length + " + " + estrellasAcertadas.length;
     
     return acertados;
   }
 
-  const getNumerosGanadores = (numeroMaximo: number, numeroLimite: number) => {
-      const numerosPosibles = [];
-  
-      for (let i = 1; i <= numeroMaximo; i++) {
-        numerosPosibles.push(i);
-      }
-  
-      for (let i = numerosPosibles.length - 1; i > 0; i--) {
-        const numero: number = Math.floor(Math.random() * (i + 1));
-        [numerosPosibles[i], numerosPosibles[numero]] = [numerosPosibles[numero], numerosPosibles[i]];
-      }
-  
-      return numerosPosibles.slice(0, numeroLimite);
-  }
+  const getNumerosGanadores = (numeroMaximo: number, numeroLimite: number): number[] => {
+    const numeros = Array.from({ length: numeroMaximo }, (_, i) => i + 1);
+
+    for (let i = numeros.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [numeros[i], numeros[j]] = [numeros[j], numeros[i]];
+    }
+
+    return numeros.slice(0, numeroLimite);
+  };
   
   return (
     <main id="euromillones">
@@ -121,24 +118,102 @@ function App() {
         </header>
       </section>
 
-      <EuromillonesInstrucciones open={openInstrucciones} />
-    
-      <EuromillonesJugar
-        open={openJugar}
-        numeros={numeros}
-        estrellas={estrellas}
-        numerosSeleccion={numerosSeleccion}
-        estrellasSeleccion={estrellasSeleccion}
-        seleccionarNumeros={seleccionarNumeros}
-        seleccionarEstrellas={seleccionarEstrellas}
-        juegoIniciado={juegoIniciado}
-        probarSuerte={probarSuerte}
-        jugarOtraVez={jugarOtraVez}
-        numerosGanadoresSeleccion={numerosGanadoresSeleccion}
-        estrellasGanadorasSeleccion={estrellasGanadorasSeleccion}
-        getNumeroAciertos={getNumeroAciertos}
-        tablaPremios={tablaPremios}
-      />
+      <section id="euromillones-instrucciones" className={openInstrucciones ? "instrucciones" : ""}>
+        <header className="acordeon">
+          <article id="euromillones-instrucciones-como-jugar">
+            <h2>¿Cómo se juega a Euromillones?</h2>
+            <p>Cada apuesta de Euromillones consiste en <strong>seleccionar 5 números de una tabla de 50</strong> (números del 1 al 50) <strong>y dos estrellas de una tabla de 12 números</strong> (del 1 al 12).</p>
+          </article>
+          <article id="euromillones-instrucciones-premios">
+            <h2>¿Cuáles son los premios?</h2>
+            <p>Los premios se distribuyen entre las siguientes categorías:</p>
+            <ul>
+              <li><strong>1ª Categoría:</strong> Si aciertas los 5 números y <u>las 2 estrellas</u> (5 + 2).</li>
+              <li><strong>2ª Categoría:</strong> Si aciertas <u>5 números</u> y <u>1 estrella</u> (5 + 1).</li>
+              <li><strong>3ª Categoría:</strong> Si aciertas <u>5 números</u> (5 + 0).</li>
+              <li><strong>4ª Categoría:</strong> Si aciertas <u>4 números</u> y <u>2 estrellas</u> (4 + 2).</li>
+              <li><strong>5ª Categoría:</strong> Si aciertas <u>4 números</u> y <u>1 estrella</u> (4 + 1).</li>
+              <li><strong>6ª Categoría:</strong> Si aciertas <u>4 números</u> (4 + 0).</li>
+              <li><strong>7ª Categoría:</strong> Si aciertas <u>3 números</u> y <u>2 estrellas</u> (3 + 2).</li>
+              <li><strong>8ª Categoría:</strong> Si aciertas <u>2 números</u> y <u>2 estrellas</u> (2 + 2).</li>
+              <li><strong>9ª Categoría:</strong> Si aciertas <u>3 números</u> y <u>1 estrella</u> (3 + 1).</li>
+              <li><strong>10ª Categoría:</strong> Si aciertas <u>3 números</u> (3 + 0).</li>
+              <li><strong>11ª Categoría:</strong> Si aciertas <u>1 número</u> y <u>2 estrellas</u> (1 + 2).</li>
+              <li><strong>12ª Categoría:</strong> Si aciertas <u>2 números</u> y <u>1 estrella</u> (2 + 1).</li>
+              <li><strong>13ª Categoría:</strong> Si aciertas <u>2 números</u> (2 + 0).</li>
+            </ul>
+
+            <p className="aviso">* Si aciertas 1 número, o 1 número y 1 estrella, tienes <i>nada</i>.</p>
+          </article>
+        </header>
+      </section>
+
+      <section id="euromillones-jugar" className={openJugar ? "jugar" : ""}>
+        <header className="acordeon">
+          <div className="euromillones-jugar-container">
+            <h3>Números</h3>
+            <Casilla items={numeros} seleccionados={numerosSeleccionados} onToggle={seleccionarNumeros} disabled={juegoIniciado} sufijoKey="num" />
+          </div>
+          <div className="euromillones-jugar-estrellas">
+            <h3>Estrellas ⭐</h3>
+            <Casilla items={estrellas} seleccionados={estrellasSeleccion} onToggle={seleccionarEstrellas} disabled={juegoIniciado} sufijoKey="est" />
+          </div>
+          {!juegoIniciado && (
+            <div className="euromillones-jugar-suerte">
+              <button className="euromillones-acciones-btn euromillones-suerte-btn" onClick={probarSuerte}>¡PROBAR SUERTE!</button>
+            </div>
+          )}
+          <div id="euromillones-resultado-suerte" className={juegoIniciado ? "suerte" : ""}>
+            { juegoIniciado && (
+            <div className="acordeon">
+              <div className="euromillones-resultado-numeros">
+                <div>
+                  <div className="euromillones-resultado-mis-numeros">
+                    <div>Mis números 📝</div>
+                    <span>{ numerosSeleccionados.join(" - ")} ⭐ { estrellasSeleccion.join(" - ") }</span>
+                  </div>
+                  <div className="euromillones-resultado-combinacion-ganadora">
+                    <div>Combinación ganadora 👑</div>
+                    <span>{ numerosGanadoresSeleccion.join(" - ")} ⭐ { estrellasGanadorasSeleccion.join(" - ") }</span>
+                  </div>
+                </div>
+                
+                <div className="euromillones-resultado-aciertos">
+                  <span className="euromillones-resultado-aciertos">Has acertado { getNumeroAciertos() }</span>
+                </div>
+                <div className="euromillones-jugar-suerte">
+                  <button className="euromillones-acciones-btn euromillones-reintentar-btn" onClick={jugarOtraVez}>JUGAR OTRA VEZ</button>
+                </div>
+              </div>
+  
+              <div className="euromillones-resultado-tabla-premios">
+                <h3>Tabla de premios</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Categoría</th>
+                      <th>Aciertos (Números + Estrellas)</th>
+                      <th>Importe del premio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      tablaPremios.map((fila) => (
+                        <tr key={fila.categoria} className={`${ getNumeroAciertos() === fila.aciertos ? 'acierto': '' }`}>
+                          <td>{fila.categoria}</td>
+                          <td>{fila.aciertos}</td>
+                          <td className="importe">{fila.importe}</td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+          </div>
+        </header>
+      </section>
     </main>
   )
 }
